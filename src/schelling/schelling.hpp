@@ -1,5 +1,5 @@
 
-/** schelling.cpp, based on
+/** schelling.hpp, based on
  * 'Models of Segregation' Schelling (1969)
  *
  *  Copyright (C) 2021 Czespo
