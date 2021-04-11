@@ -1,5 +1,5 @@
 
-/** traffic.hpp, an visualization of the Biham-Middleton-Levine traffic model.
+/** traffic.hpp, a visualization of the Biham-Middleton-Levine traffic model.
  *
  *  Copyright (C) 2021 Czespo
  *
