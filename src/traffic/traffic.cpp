@@ -98,16 +98,9 @@ Traffic::Traffic(int _width, int _height, float _density) : ModelCA(_width, _hei
 void Traffic::init()
 {
     // Initialise the model's state. //
-    int choices[3] = {EMPTY, RED, BLUE};
+    unsigned char choices[3] = {EMPTY, RED, BLUE};
     float weights[3] = {1.0f - density, density / 2, density / 2};
-
-    for(int y = 0; y < height; y++)
-    {
-        for(int x = 0; x < width; x++)
-        {
-            cell(x, y) = ModelCA::choice(3, choices, weights);
-        }
-    }
+    init_cells(3, choices, weights);
 }
 
 bool Traffic::update()

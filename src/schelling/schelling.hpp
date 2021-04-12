@@ -35,9 +35,9 @@ class Schelling : public ModelCA
         bool update();
 
     private:
-        const int EMPTY = 0;
-        const int RED = 1;
-        const int BLUE = 2;
+        const unsigned char EMPTY = 0,
+                            RED = 1,
+                            BLUE = 2;
 
         std::vector<std::pair<int, int>> empty;
 

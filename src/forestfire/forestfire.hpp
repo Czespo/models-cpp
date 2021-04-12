@@ -33,9 +33,9 @@ class ForestFire : public ModelCA
         bool update();
 
     private:
-        const int EMPTY = 0;
-        const int TREE = 1;
-        const int FIRE = 2;
+        const unsigned char EMPTY = 0,
+                            TREE = 1,
+                            FIRE = 2;
 
         float p, f;
 };

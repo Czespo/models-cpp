@@ -41,6 +41,9 @@ class ModelCA : public Model2D
     public:
         static const SDL_Colour COLOURS[];
 
+        /**
+         * Returns `choices[i]` with probability `weights[i]`.
+         */
         template<typename T>
         static T choice(int count, T* choices, float* weights)
         {
@@ -57,6 +60,16 @@ class ModelCA : public Model2D
 
         ModelCA(int width, int height);
         virtual ~ModelCA();
+
+        /**
+         * Initializes each cell of the model with the return value
+         * of `ModelCA::choice(count, choices, weights)`
+         */
+        void init_cells(int count, unsigned char* choices, float* weights)
+        {
+            for(std::size_t i = 0, end = width * height; i < end; i++)
+                cells[i] = ModelCA::choice(count, choices, weights);
+        }
 
         unsigned char& cell(int x, int y);
 

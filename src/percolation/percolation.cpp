@@ -102,7 +102,7 @@ Percolation::Percolation(int _width, int _height, float _q) : ModelCA(_width, _h
 void Percolation::init()
 {
     // Initialise model state. //
-    int choices[2] = {NONPOROUS, POROUS};
+    unsigned char choices[2] = {NONPOROUS, POROUS};
     float weights[2] = {1.0f - q, q};
 
     for(std::size_t i = 0, end = width * height; i < end; i++)

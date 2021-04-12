@@ -32,9 +32,9 @@ class Percolation : public ModelCA
         bool update();
 
     private:
-        const int NONPOROUS = 0;
-        const int POROUS = 1;
-        const int WET = 2;
+        const unsigned char NONPOROUS = 0,
+                            POROUS = 1,
+                            WET = 2;
 
         float q;
 };

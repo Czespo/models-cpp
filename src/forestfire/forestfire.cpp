@@ -109,11 +109,9 @@ ForestFire::ForestFire(int _width, int _height, float _p, float _f) : ModelCA(_w
 void ForestFire::init()
 {
     // Initialise model state. //
-    int choices[2] = {EMPTY, TREE};
+    unsigned char choices[2] = {EMPTY, TREE};
     float weights[2] = {1.0f - p, p};
-
-    for(std::size_t i = 0, end = width * height; i < end; i++)
-        cells[i] = ModelCA::choice(2, choices, weights);
+    init_cells(2, choices, weights);
 }
 
 bool ForestFire::update()

@@ -128,7 +128,7 @@ Schelling::Schelling(int _width, int _height, float _red, float _blue, float _th
 void Schelling::init()
 {
     // Initialise model state. //
-    int choices[3] = {EMPTY, RED, BLUE};
+    unsigned char choices[3] = {EMPTY, RED, BLUE};
     float weights[3] = {1.0f - (red + blue), red, blue};
 
     empty.clear();
@@ -136,7 +136,7 @@ void Schelling::init()
     {
         for(int x = 0; x < width; x++)
         {
-            int choice = ModelCA::choice(3, choices, weights);
+            unsigned char choice = ModelCA::choice(3, choices, weights);
             if(choice == EMPTY) empty.push_back(std::pair<int, int>(x, y));
 
             cell(x, y) = choice;
