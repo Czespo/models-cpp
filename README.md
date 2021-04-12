@@ -1,6 +1,6 @@
 
 # models-cpp
-Some models, mostly cellular automata, written in C++ with SDL2.
+Some models, mostly cellular automata, written in C++ with [SDL2](http://libsdl.org).
 
 ## Compiling
 You need the SDL2 headers and static libraries. You can probably get them from <http://libsdl.org/download-2.0.php>.
