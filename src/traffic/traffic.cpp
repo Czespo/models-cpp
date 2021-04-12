@@ -112,27 +112,19 @@ void Traffic::init()
 
 bool Traffic::update()
 {
-    //bool jam = false;
-
     unsigned char* old_cells = new unsigned char[width * height];
     std::memcpy(old_cells, cells, width * height);
 
     // Move all red cars.
-    for(int y = 0; y < height; y++)
+    for(int i = 0, end = width * height; i < end; i++)
     {
-        for(int x = 0; x < width; x++)
+        if(old_cells[i] == RED)
         {
-            if(old_cells[y * width + x] == RED)
+            std::size_t next = (i / width) * width + ((i + 1) % width);
+            if(old_cells[next] == EMPTY)
             {
-                if(old_cells[y * width + (x + 1) % width] == EMPTY)
-                {
-                    cell((x + 1) % width, y) = RED;
-                    cell(x, y) = EMPTY;
-                }
-                else
-                {
-                    //jam = true;
-                }
+                cells[next] = RED;
+                cells[i] = EMPTY;
             }
         }
     }
@@ -140,21 +132,15 @@ bool Traffic::update()
     std::memcpy(old_cells, cells, width * height);
 
     // Move all blue cars.
-    for(int y = 0; y < height; y++)
+    for(int i = 0, end = width * height; i < end; i++)
     {
-        for(int x = 0; x < width; x++)
+        if(old_cells[i] == BLUE)
         {
-            if(old_cells[y * width + x] == BLUE)
+            std::size_t next = ((i / width) + 1) % height * width + (i % width);
+            if(old_cells[next] == EMPTY)
             {
-                if(old_cells[(y + 1) % height * width + x] == EMPTY)
-                {
-                    cell(x, (y + 1) % height) = BLUE;
-                    cell(x, y) = EMPTY;
-                }
-                else
-                {
-                    //jam = true;
-                }
+                cells[next] = BLUE;
+                cells[i] = EMPTY;
             }
         }
     }

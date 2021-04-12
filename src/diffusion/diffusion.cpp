@@ -21,6 +21,7 @@
 #include "diffusion.hpp"
 
 #include "../Model2D.hpp"
+#include "../ModelCA.hpp"
 #include "../Viewer.hpp"
 
 #include <cstdlib>
@@ -50,7 +51,7 @@ int main(int argc, char** argv)
         }
         else if(strcmp(argv[i], "-r") == 0)
         {
-            p = atof(argv[i + 1]);
+            r = atof(argv[i + 1]);
         }
     }
 
@@ -66,10 +67,17 @@ int main(int argc, char** argv)
     return 0;
 }
 
+const SDL_Colour ModelCA::COLOURS[] = {0};
+
 Diffusion::Diffusion(int _width, int _height, float _r)
-    : Model2D(_width, _height), r(_r), cells(new float[_width * _height]{})
+    : Model2D(_width, _height), cells(new float[_width * _height]{}), r(_r)
 {
     /// TODO
+}
+
+Diffusion::~Diffusion()
+{
+    delete[] cells;
 }
 
 void Diffusion::init()
@@ -96,19 +104,12 @@ void Diffusion::render(SDL_Surface* surface, SDL_Rect* dest, const ModelFrame* f
 // D I F F U S I O N  F R A M E //
 // ============================ //
 
-DiffusionFrame::DiffusionFrame(const Diffusion* model)
-    : cells(new float[model->width * model->height])
+DiffusionFrame::DiffusionFrame(const Diffusion* model) : cells(new float[model->width * model->height])
 {
-    for(int y = 0; y < height; y++)
-    {
-        for(int x = 0; x < width; x++)
-        {
-            cells[y * model->width + x] = model->cells[y * model->width + x];
-        }
-    }
+    std::memcpy(cells, model->cells, model->width * model->height * sizeof(float));
 }
 
-~DiffusionFrame()
+DiffusionFrame::~DiffusionFrame()
 {
     delete[] cells;
 }

@@ -83,6 +83,8 @@ void Viewer::next()
 
 void Viewer::render()
 {
+    // if(no_window) return;
+
     // Render black background. //
     SDL_SetRenderDrawColor(renderer, 0x00, 0x00, 0x00, 0xFF);
     SDL_RenderClear(renderer);
@@ -107,12 +109,14 @@ void Viewer::render()
 
 void Viewer::run(Model* _model)
 {
+    // if(viewer->no_window) ...
+
     model = _model;
     render();
 
     while(running)
     {
-        time_t start = time(NULL);
+        std::clock_t start = std::clock();
 
         // Process key events. //
         SDL_Event event;
@@ -144,9 +148,12 @@ void Viewer::run(Model* _model)
             }
         }
 
-        if(playing)
-            next();
+        if(playing) next();
 
-        if(delay > 0) SDL_Delay(delay - (time(NULL) - start));
+        if(delay > 0)
+        {
+            int dl = delay - (std::clock() - start);
+            if(dl > 0) SDL_Delay(dl);
+        }
     }
 }

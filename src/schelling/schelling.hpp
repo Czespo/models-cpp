@@ -23,6 +23,8 @@
 
 #include "../ModelCA.hpp"
 
+#include <vector>
+
 class Schelling : public ModelCA
 {
     public:

@@ -24,6 +24,8 @@
 #include "../Viewer.hpp"
 #include "../Args.hpp"
 
+#include <vector>
+
 #include <cstdlib>
 #include <cstdio>
 #include <ctime>
@@ -110,9 +112,8 @@ void ForestFire::init()
     int choices[2] = {EMPTY, TREE};
     float weights[2] = {1.0f - p, p};
 
-    for(int y = 0; y < height; y++)
-        for(int x = 0; x < width; x++)
-            cell(x, y) = ModelCA::choice(2, choices, weights);
+    for(std::size_t i = 0, end = width * height; i < end; i++)
+        cells[i] = ModelCA::choice(2, choices, weights);
 }
 
 bool ForestFire::update()

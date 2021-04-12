@@ -37,18 +37,20 @@ class Diffusion : public Model2D
 {
     public:
         Diffusion(int width, int height, float r);
-        ~Diffusion() {}
+        ~Diffusion();
 
         void init();
 
         ModelFrame* frame();
         bool update();
-        void render();
+        void render(SDL_Surface* surface, SDL_Rect* dest, const ModelFrame* frame);
 
     private:
         float* cells;
 
         float r;
+
+    friend DiffusionFrame::DiffusionFrame(const Diffusion*);
 };
 
 #endif // DIFFUSION_HPP

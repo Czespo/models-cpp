@@ -271,10 +271,8 @@ bool Sugarscape::update()
     }
 
     // Regrow sugar. //
-    for(int y = 0; y < height; y++)
-        for(int x = 0; x < width; x++)
-            if(cell(x, y) < capacity[y * width + x])
-                cell(x, y)++;
+    for(std::size_t i = 0, end = width * height; i < end; i++)
+        if(cells[i] < capacity[i]) cells[i]++;
 
     return false;
 }

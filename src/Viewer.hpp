@@ -74,6 +74,10 @@ class Viewer
                         viewer->delay = 0;
                     }
                 }
+                else if(strcmp(argv[i], "-nw") == 0)
+                {
+                    viewer->no_window = true;
+                }
             }
 
             // Initialise SDL. //
@@ -82,6 +86,8 @@ class Viewer
                 printf("Init() failed to initialise SDL: %s\n", SDL_GetError());
                 return false;
             }
+
+            // if(viewer->no_window) return true;
 
             // Initialise window. //
             int flags = SDL_WINDOW_SHOWN;
@@ -167,6 +173,9 @@ class Viewer
 
         bool running = true;
         bool playing = false;
+
+        /// TODO
+        bool no_window = false;
 };
 
 #endif // VIEWER_HPP

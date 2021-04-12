@@ -23,10 +23,11 @@
 #include "../Viewer.hpp"
 #include "../Args.hpp"
 
+#include <vector>
+
 #include <cstdlib>
 #include <cstdio>
 #include <ctime>
-
 
 int main(int argc, char** argv)
 {
@@ -104,18 +105,15 @@ void Percolation::init()
     int choices[2] = {NONPOROUS, POROUS};
     float weights[2] = {1.0f - q, q};
 
-    for(int y = 0; y < height; y++)
+    for(std::size_t i = 0, end = width * height; i < end; i++)
     {
-        for(int x = 0; x < width; x++)
+        if(i < (std::size_t) width)
         {
-            if(y == 0)
-            {
-                cell(x, y) = WET;
-            }
-            else
-            {
-                cell(x, y) = ModelCA::choice(2, choices, weights);
-            }
+            cells[i] = WET;
+        }
+        else
+        {
+            cells[i] = ModelCA::choice(2, choices, weights);
         }
     }
 }
