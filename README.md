@@ -17,3 +17,6 @@ Download the SDL2 runtime binaries, or build them from source: <http://libsdl.or
 - schelling - A model as described in Schelling's 1969 paper 'Models of Segregation', rendered in two dimensions.
 - sugarscape - A model as described in Epstein and Axtell's 1996 book 'Growing Artificial Societies'.
 - traffic - The [Biham-Middleton-Levine traffic model](https://en.wikipedia.org/wiki/Biham%E2%80%93Middleton%E2%80%93Levine_traffic_model).
+
+## Credits
+Many of the above models are presented in Allen Downey's book [Think Complexity](http://greenteapress.com/wp/think-complexity/), 2nd edition. After reading his excellent book, I contrived to implement the models myself, as a learning exercise. If you'd like an in-depth analysis of these models, and complexity science in general, I encourage you to read Mr. Downey's book.
