@@ -65,11 +65,7 @@ class ModelCA : public Model2D
          * Initializes each cell of the model with the return value
          * of `ModelCA::choice(count, choices, weights)`
          */
-        void init_cells(int count, unsigned char* choices, float* weights)
-        {
-            for(std::size_t i = 0, end = width * height; i < end; i++)
-                cells[i] = ModelCA::choice(count, choices, weights);
-        }
+        void init_cells(int count, unsigned char* choices, float* weights);
 
         unsigned char& cell(int x, int y);
 

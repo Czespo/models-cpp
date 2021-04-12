@@ -36,6 +36,12 @@ ModelCA::~ModelCA()
     delete[] cells;
 }
 
+void ModelCA::init_cells(int count, unsigned char* choices, float* weights)
+{
+    for(std::size_t i = 0, end = width * height; i < end; i++)
+        cells[i] = ModelCA::choice(count, choices, weights);
+}
+
 unsigned char& ModelCA::cell(int x, int y)
 {
     return cells[y * width + x];
