@@ -23,6 +23,10 @@
 
 #include <SDL.h>
 
+#include <algorithm>
+
+#include <cstring>
+
 
 ModelCA::ModelCA(int _width, int _height)
     : Model2D(_width, _height), cells(new unsigned char[_width * _height]{}) { }
@@ -66,13 +70,7 @@ void ModelCA::render(SDL_Surface* surface, SDL_Rect* dest, const ModelFrame* fra
 
 ModelCAFrame::ModelCAFrame(const ModelCA* model) : cells(new unsigned char[model->width * model->height])
 {
-    for(int y = 0; y < model->height; y++)
-    {
-        for(int x = 0; x < model->width; x++)
-        {
-            cells[y * model->width + x] = model->cells[y * model->width + x];
-        }
-    }
+    std::memcpy(cells, model->cells, model->width * model->height);
 }
 
 ModelCAFrame::~ModelCAFrame()

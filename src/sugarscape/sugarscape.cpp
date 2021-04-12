@@ -25,6 +25,7 @@
 #include "../Viewer.hpp"
 
 #include <cstdlib>
+#include <cstring>
 #include <cstdio>
 #include <cmath>
 #include <ctime>
@@ -324,15 +325,9 @@ void Sugarscape::render(SDL_Surface* surface, SDL_Rect* dest, const ModelFrame* 
 // ============================== //
 
 SugarscapeFrame::SugarscapeFrame(const Sugarscape* model)
-    : cells(new unsigned char[(model->width * 2) * model->height])
+    : cells(new unsigned char[model->width * model->height])
 {
-    for(int y = 0; y < model->height; y++)
-    {
-        for(int x = 0; x < model->width; x++)
-        {
-            cells[y * model->width + x] = model->cells[y * model->width + x];
-        }
-    }
+    std::memcpy(cells, model->cells, model->width * model->height);
 
     for(Agent agent : model->agents)
     {

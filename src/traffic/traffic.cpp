@@ -23,6 +23,7 @@
 #include "../Viewer.hpp"
 
 #include <cstdlib>
+#include <cstring>
 #include <cstdio>
 #include <ctime>
 
@@ -114,13 +115,7 @@ bool Traffic::update()
     //bool jam = false;
 
     unsigned char* old_cells = new unsigned char[width * height];
-    for(int y = 0; y < height; y++)
-    {
-        for(int x = 0; x < width; x++)
-        {
-            old_cells[y * width + x] = cell(x, y);
-        }
-    }
+    std::memcpy(old_cells, cells, width * height);
 
     // Move all red cars.
     for(int y = 0; y < height; y++)
@@ -142,9 +137,7 @@ bool Traffic::update()
         }
     }
 
-    for(int y = 0; y < height; y++)
-        for(int x = 0; x < width; x++)
-            old_cells[y * width + x] = cell(x, y);
+    std::memcpy(old_cells, cells, width * height);
 
     // Move all blue cars.
     for(int y = 0; y < height; y++)
