@@ -21,6 +21,7 @@
 #define VIEWER_HPP
 
 #include "Model2D.hpp"
+#include "Events.hpp"
 #include "Args.hpp"
 
 #include <SDL.h>
@@ -36,6 +37,8 @@ class Viewer
 
         static bool Init(const char* title, int argc, char** argv)
         {
+            if(!Events::init()) return false;
+
             if(viewer == nullptr) Get();
 
             // Process command-line arguments. //
@@ -130,6 +133,8 @@ class Viewer
 
         static void Quit()
         {
+            Events::quit();
+
             delete viewer;
         }
 

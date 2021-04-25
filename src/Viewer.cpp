@@ -19,13 +19,13 @@
 
 #include "Viewer.hpp"
 
+#include "Events.hpp"
 #include "Model.hpp"
 
 #include <SDL.h>
 
 #include <cstdlib>
 #include <ctime>
-
 
 Viewer* Viewer::viewer = nullptr;
 
@@ -100,7 +100,7 @@ void Viewer::render()
 
         // Convert buffer to texture and copy to renderer.
         SDL_Texture* tx = SDL_CreateTextureFromSurface(renderer, buffer);
-        SDL_RenderCopy(renderer, tx, NULL, NULL);
+        SDL_RenderCopy(renderer, tx, NULL, &target_rect);
         SDL_DestroyTexture(tx);
     }
 
@@ -118,42 +118,41 @@ void Viewer::run(Model* _model)
     {
         std::clock_t start = std::clock();
 
-        // Process key events. //
-        SDL_Event event;
-        while(SDL_PollEvent(&event))
-        {
-            if(event.type == SDL_QUIT || (event.type == SDL_KEYDOWN && event.key.keysym.sym == SDLK_ESCAPE))
-                running = false;
+        // Process events. //
+        Events::update();
 
-            if(event.type == SDL_KEYDOWN)
-            {
-                if(event.key.keysym.sym == SDLK_SPACE)
-                {
-                    playing = !playing;
-                }
-                else if(!playing && event.key.keysym.sym == SDLK_LEFT)
-                {
-                    previous();
-                }
-                else if(!playing && event.key.keysym.sym == SDLK_RIGHT)
-                {
-                    next();
-                }
-                else if(event.key.keysym.sym == SDLK_r)
-                {
-                    playing = false;
-                    model->init();
-                    render();
-                }
-            }
+        if(Events::quit_requested())
+        {
+            running = false;
         }
-
-        if(playing) next();
-
-        if(delay > 0)
+        else
         {
-            int dl = delay - (std::clock() - start);
-            if(dl > 0) SDL_Delay(dl);
+            if(Events::key_pressed(SDL_SCANCODE_SPACE))
+            {
+                playing = !playing;
+            }
+            else if(Events::key_pressed(SDL_SCANCODE_LEFT))
+            {
+                previous();
+            }
+            else if(Events::key_pressed(SDL_SCANCODE_RIGHT))
+            {
+                next();
+            }
+            else if(Events::key_pressed(SDL_SCANCODE_R))
+            {
+                playing = false;
+                model->init();
+                render();
+            }
+
+            if(playing) next();
+
+            if(delay > 0)
+            {
+                int dl = delay - (std::clock() - start);
+                if(dl > 0) SDL_Delay(dl);
+            }
         }
     }
 }
